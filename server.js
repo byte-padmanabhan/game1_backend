@@ -15,7 +15,7 @@ const server = http.createServer(app);
 // ✅ Use dynamic CORS (Vercel + Localhost)
 const allowedOrigins = [
   "http://localhost:5173", // local frontend
-  "game1-frontend.vercel.app" // your deployed frontend
+  "https://game1-frontend.vercel.app" // your deployed frontend
 ];
 
 const io = new Server(server, {
@@ -191,7 +191,9 @@ io.on("connection", (socket) => {
 });
 
 // ----------------- Start Server -----------------
-const PORT = process.env.PORT || 8080;
-server.listen(PORT, () => console.log(`🚀 Server running on http://localhost:${PORT}`));
+if (process.env.NODE_ENV !== "production") {
+  const PORT = process.env.PORT || 8080;
+  server.listen(PORT, () => console.log(`🚀 Server running locally on http://localhost:${PORT}`));
+}
 
 export default app; // ✅ Required for Vercel
