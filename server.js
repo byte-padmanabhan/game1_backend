@@ -15,7 +15,7 @@ const server = http.createServer(app);
 // ✅ Use dynamic CORS (Vercel + Localhost)
 const allowedOrigins = [
   "http://localhost:5173", // local frontend
-  "https://your-frontend-name.vercel.app" // your deployed frontend
+  "game1-frontend.vercel.app" // your deployed frontend
 ];
 
 const io = new Server(server, {
