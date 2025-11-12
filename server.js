@@ -13,10 +13,21 @@ const app = express();
 const server = http.createServer(app);
 
 // ✅ Use dynamic CORS (Vercel + Localhost)
-const allowedOrigins = [
-  "http://localhost:5173", // local frontend
-  "https://game1-frontend.vercel.app" // your deployed frontend
-];
+
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  methods: ["GET", "POST", "PUT"],
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
+app.use(express.json());
 
 const io = new Server(server, {
   cors: {
